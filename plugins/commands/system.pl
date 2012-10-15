@@ -9,7 +9,6 @@ Alleria->focus('message::command', sub {
 	my $message = $args->[0];
 	my $reply;
 
-
 	given ($message->{'command'}) {
 		$reply = `uptime`
 			when 'uptime';

@@ -1,0 +1,35 @@
+=pod
+
+=head2 NAME
+
+Alleria - Simple XMPP bot
+
+=head2 SYNOPSIS
+
+General usage
+
+	use Alleria;
+
+	my $bot = Alleria->new(
+		host     => 'n4kz.com',
+		username => 'bot',
+	);
+
+	$bot->load(qw{ echo error daemon });
+
+	$bot->daemonize();
+
+	$bot->start();
+
+	$bot->process() while 1;
+
+	$bot->stop();
+
+=head2 COPYRIGHT & LICENSE
+
+Copyright 2012 Alexander Nazarov, all rights reserved.
+
+This program is free software; you can redistribute it and/or modify it
+under the same terms as Perl itself.
+
+=cut
