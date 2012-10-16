@@ -10,7 +10,7 @@ my %fields = (
 	GetQueryXMLNS => 'xmlns',
 );
 
-Alleria->focus('iq', sub {
+Alleria->focus(iq => sub {
 	my ($self, $event, $args) = @_;
 	my $iq = $args->[-1];
 	my %iq = map { ($fields{$_} => $iq->$_() || '') } keys %fields;

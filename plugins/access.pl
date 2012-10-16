@@ -4,15 +4,16 @@ Alleria->properties('rules');
 
 Alleria->extend(accessible => sub {
 	my ($self, $args) = @_;
-	my $rules = $self->rules() || {};
+	my $rule = $args->{'rule'};
+	my $rules = ($self->rules() || {})->{$rule} || {};
 
-	my $command = $args->{'command'} || '';
-	my $user = $args->{'from'};
+	my $name = $args->{'name'} || '';
+	my $user = $args->{'from'} || '';
 	my ($host) = ($user =~ m{@(.*)$});
 
 	return 1
 		if grep {
-			$_ eq $command or $_ eq '*'
+			$_ eq $name or $_ eq '*'
 		} map {
 			@{ $_ || [] }
 		} map {

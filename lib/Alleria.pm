@@ -26,7 +26,7 @@ sub new {
 	$self->{'ok'}         = 1;
 	$self->{'debug'}    ||= 0;
 	$self->{'tls'}      ||= 0;
-	$self->{'timeout'}  ||= 1;
+	$self->{'timeout'}  ||= 2;
 	$self->{'port'}     ||= 5222;
 	$self->{'resource'} ||= 'Alleria';
 	$self->{'logfile'}  ||= '/dev/null';

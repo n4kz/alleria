@@ -3,7 +3,7 @@ use Data::Dumper;
 
 my %fields = map { ("Get$_" => lc) } qw{ To From Type Status Show };
 
-Alleria->focus('presence', sub {
+Alleria->focus(presence => sub {
 	my ($self, $event, $args) = @_;
 	my $presence = $args->[0];
 	my %presence = map { ( $fields{$_} => $presence->$_() || '' ) } keys %fields;
