@@ -1,5 +1,4 @@
 use Alleria::Core 'strict';
-use Data::Dumper;
 
 my %fields = (
 	GetTo         => 'to',
@@ -15,9 +14,13 @@ Alleria->focus(iq => sub {
 	my $iq = $args->[-1];
 	my %iq = map { ($fields{$_} => $iq->$_() || '') } keys %fields;
 
-	$event .= join '::',
-		'', 
-		($iq{'query'} = (split ':', $iq{'xmlns'})[-1]),
+	$iq{'query'} = (split ':', $iq{'xmlns'})[-1];
+
+	return unless $iq{'query'};
+
+	$event = join '::',
+		$event, 
+		$iq{'query'},
 		$iq{'type'};
 
 	$self->fire($event, [\%iq, $iq]);

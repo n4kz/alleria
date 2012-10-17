@@ -1,7 +1,8 @@
-package Alleria;
+package Alleria 1;
 use Alleria::Core 'base', 'has';
 use Term::ReadKey;
 use Net::Jabber 'client';
+
 my %events;
 
 sub events { \%events }

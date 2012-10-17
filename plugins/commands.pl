@@ -14,7 +14,6 @@ Alleria->shackleshot(fire => sub {
 	($message->{'command'}, $message->{'arguments'}) = split m{[\s\t\n\r]+}, $message->{'body'}, 2;
 	$message->{'command'} =~ s{^#} {};
 
-	# TODO: Do this in more obvious way
 	return 1 unless $commands{$message->{'command'}};
 
 	if ($self->can('accessible')) {
@@ -24,6 +23,10 @@ Alleria->shackleshot(fire => sub {
 			name => $message->{'command'}
 		});
 	}
+
+	$message->{'arguments'} //= '';
+	$message->{'arguments'} =~ s{[\s\t\n\r]+} { }g;
+	$message->{'arguments'} =~ s{\s\Z} {};
 
 	$self->fire('message::command', $args);
 

@@ -1,5 +1,4 @@
 use Alleria::Core 'strict';
-use Data::Dumper;
 
 my %fields = map { ("Get$_" => lc) } qw{ To From Type Status Show };
 
@@ -20,12 +19,11 @@ Alleria->focus(presence => sub {
 		$event .= $presence{'type'}
 			when m{(?:un)?subscribed?};
 
-		1 when 'unavailable'; # TODO: read standard
+		1 when m{(?:un)?available};
+		1 when 'probe';
 
 		default {
 			undef $event;
-			warn 'presence';
-			warn Dumper(\%presence);
 		}
 	}
 
