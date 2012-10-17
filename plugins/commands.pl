@@ -1,5 +1,7 @@
 use Alleria::Core 'strict';
 
+my %commands;
+
 Alleria->load('message');
 
 Alleria->shackleshot(fire => sub {
@@ -13,7 +15,7 @@ Alleria->shackleshot(fire => sub {
 	$message->{'command'} =~ s{^#} {};
 
 	# TODO: Do this in more obvious way
-	return 1 unless $Alleria::commands->{$message->{'command'}};
+	return 1 unless $commands{$message->{'command'}};
 
 	if ($self->can('accessible')) {
 		return 1 unless $self->accessible({
@@ -28,7 +30,9 @@ Alleria->shackleshot(fire => sub {
 	return 0;
 }, 1);
 
-package Alleria;
-our $commands = {};
+Alleria->extend(commands => sub {
+	$commands{$_} = 1 foreach @_[1 .. $#_];
+	return $_[0];
+});
 
 1;

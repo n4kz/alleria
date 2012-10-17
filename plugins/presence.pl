@@ -44,6 +44,8 @@ Alleria->extend(subscribe => sub {
 		to   => $to,
 		type => 'subscribed',
 	);
+
+	return $self;
 });
 
 Alleria->extend(unsubscribe => sub {
@@ -58,6 +60,8 @@ Alleria->extend(unsubscribe => sub {
 		to   => $to,
 		type => 'unsubscribed',
 	);
+
+	return $self;
 });
 
 1;

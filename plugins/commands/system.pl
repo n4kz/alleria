@@ -1,8 +1,7 @@
 use Alleria::Core 'strict';
 
 Alleria->load('commands');
-
-$Alleria::commands->{$_} = 1 foreach qw{ uptime uname free off };
+Alleria->commands(qw{ uptime uname free off });
 
 Alleria->focus('message::command', sub {
 	my ($self, $event, $args) = @_;
