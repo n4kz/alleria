@@ -1,7 +1,7 @@
 package Alleria::Core;
 use strict;
 use warnings;
-use feature ':5.12';
+use feature ':5.10';
 use utf8;
 
 my (%shackled, %events, %plugins);
@@ -196,7 +196,7 @@ sub import {
 
 	strict->import();
 	warnings->import();
-	feature->import(':5.12');
+	feature->import(':5.10');
 } # import
 
 1;

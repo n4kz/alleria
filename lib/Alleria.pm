@@ -1,4 +1,4 @@
-package Alleria 1;
+package Alleria 2;
 use Alleria::Core 'base', 'has';
 use Term::ReadKey;
 use Net::Jabber 'client';
@@ -55,16 +55,11 @@ sub start {
 		return $self;
 	}; 
 
-	$self->PresenceDB();
-	$self->RosterDB();
-
 	$self->SetCallBacks(
 		presence => sub { $self->fire(presence => [pop]) },
 		message  => sub { $self->fire(message  => [pop]) },
 		iq       => sub { $self->fire(iq       => [pop]) },
 	);
-
-	sleep 1;
 
 	my @auth = $self->AuthSend(
 		username => $self->username(),
@@ -73,11 +68,8 @@ sub start {
 	);
 	
 	if ($auth[0] eq 'ok') {
-		$self->RosterRequest();
-		$self->PresenceSend();
-		$self->RosterGet();
-
 		$self->fire('connect');
+		$self->PresenceSend();
 	} else {
 		$self->fire('error', ['Authentication failed', @auth]);
 	}
