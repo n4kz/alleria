@@ -8,7 +8,7 @@ my %events;
 sub events { \%events }
 
 has qw{
-	debug host port tls timeout client jid
+	debug host port tls ssl timeout client jid
 	ok logfile
 	username password resource
 };
@@ -27,6 +27,7 @@ sub new {
 	$self->{'ok'}         = 1;
 	$self->{'debug'}    ||= 0;
 	$self->{'tls'}      ||= 0;
+	$self->{'ssl'}      ||= 0;
 	$self->{'timeout'}  ||= 2;
 	$self->{'port'}     ||= 5222;
 	$self->{'resource'} ||= 'Alleria';
@@ -50,10 +51,8 @@ sub start {
 		port     => $self->port(),
 		timeout  => $self->timeout(),
 		tls      => $self->tls(),
-	) or do {
-		$self->fire('error', ['Connection error: '. $!]);
-		return $self;
-	}; 
+		ssl      => $self->ssl(),
+	) or return $self->fire('error', ['Connection error: '. $!]);
 
 	$self->SetCallBacks(
 		presence => sub { $self->fire(presence => [pop]) },
@@ -90,7 +89,7 @@ sub process {
 	my ($self) = (@_);
 
 	if ($self->Connected()) {
-		$self->Process() // $self->disconnect;
+		$self->Process() // $self->stop();
 	} else {
 		$self->connect();
 	}

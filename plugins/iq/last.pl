@@ -18,3 +18,5 @@ Alleria->focus('iq::last::get' => sub {
 
 	$self->Send($reply);
 });
+
+1;

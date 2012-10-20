@@ -15,3 +15,5 @@ Alleria->focus('iq::time::get' => sub {
 
 	$self->Send($reply);
 });
+
+1;

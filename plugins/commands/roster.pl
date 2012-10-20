@@ -1,6 +1,6 @@
 use Alleria::Core 'strict';
 
-Alleria->load(qw{ message commands roster });
+Alleria->load(qw{ message commands roster subscription });
 Alleria->commands(qw{ roster roster-all roster-add roster-del });
 
 Alleria->focus('message::command', sub {

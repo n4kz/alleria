@@ -34,12 +34,12 @@ Alleria->focus(message => sub {
 
 Alleria->extend(message => sub {
 	my ($self, $options) = (@_);
+	$options->{'type'} ||= 'chat';
 
 	$self->MessageSend(
-		to      => $options->{'to'},
-		type    => $options->{'type'}    || 'chat',
-		subject => $options->{'subject'} || '',
-		body    => $options->{'body'},
+		map {
+			$_ => $options->{$_}
+		} qw{ to body type }
 	) if $options->{'to'} and $options->{'body'};
 
 	return $self;

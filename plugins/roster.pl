@@ -1,7 +1,7 @@
 use Alleria::Core 'strict';
 my $roster;
 
-Alleria->load('subscription');
+Alleria->load('presence');
 
 Alleria->focus(connect => sub {
 	my ($self, $event, $args) = @_;

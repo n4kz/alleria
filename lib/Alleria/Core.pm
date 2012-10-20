@@ -132,7 +132,7 @@ sub shackleshot ($$$$) {
 		};
 
 		no strict 'refs';
-		no warnings 'prototype';
+		no warnings 'prototype', 'redefine';
 		*$slot = $method;
 	}
 
