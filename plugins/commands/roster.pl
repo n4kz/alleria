@@ -1,15 +1,7 @@
 use Alleria::Core 'strict';
 
-Alleria->properties(qw{ roster });
-Alleria->load(qw{ message commands subscription });
+Alleria->load(qw{ message commands roster });
 Alleria->commands(qw{ roster roster-all roster-add roster-del });
-
-Alleria->focus(connect => sub {
-	my ($self, $event, $args) = @_;
-
-	$self->RosterRequest();
-	$self->roster($self->Roster());
-});
 
 Alleria->focus('message::command', sub {
 	my ($self, $event, $args) = @_;
@@ -18,16 +10,11 @@ Alleria->focus('message::command', sub {
 	my $reply;
 
 	given ($message->{'command'}) {
-		my $roster = $self->roster();
+		$reply = join "\n", 'Roster:', $self->roster('online')
+			when 'roster';
 
-		when ('roster') {
-			$reply = join "\n", 'Roster:',
-				sort map {
-					$_->GetJID()
-				} grep {
-					$roster->online($_)
-				} $roster->jids();
-		}
+		$reply = join "\n", 'Roster:', $self->roster()
+			when 'roster-all';
 
 		when ('roster-add') {
 			continue unless $jid;
@@ -50,11 +37,8 @@ Alleria->focus('message::command', sub {
 			$reply = 'Item removed';
 		}
 
-		when ('roster-all') {
-			$reply = join "\n", 'Roster:',
-				sort map {
-					$_->GetJID()
-				} $roster->jids();
+		when (m{^roster-(?:add|del)$}) {
+			$reply = 'No JID supplied';
 		}
 	}
 
