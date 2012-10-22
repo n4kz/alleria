@@ -16,7 +16,7 @@ Alleria->shackleshot(fire => sub {
 
 	return 1 unless $commands{$message->{'command'}};
 
-	if ($self->can('accessible')) {
+	if ($self->loaded('access')) {
 		return 1 unless $self->accessible({
 			rule => 'commands',
 			from => $message->{'from'},
@@ -34,8 +34,34 @@ Alleria->shackleshot(fire => sub {
 }, 1);
 
 Alleria->extend(commands => sub {
-	$commands{$_} = 1 foreach @_[1 .. $#_];
+	foreach (@_[1 .. $#_]) {
+		$commands{$_} ||= {}, next unless ref;
+		while (my ($command, $parameters) = each %$_) {
+			$commands{$command} ||= ref $parameters? $parameters : { description => $parameters };
+			$commands{$command} ||= '';
+		}
+	}
+
 	return $_[0];
+});
+
+Alleria->extend(accessibles => sub {
+	my ($self, $jid, $rule) = @_;
+
+	return keys %commands unless $self->loaded('access');
+	return grep {
+		$self->accessible({
+			rule => $rule || 'commands',
+			from => $jid,
+			name => $_,
+		});
+	} keys %commands;
+});
+
+Alleria->extend(description => sub {
+	my ($self, $command) = @_;
+
+	return $commands{$command};
 });
 
 1;

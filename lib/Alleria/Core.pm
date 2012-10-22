@@ -161,6 +161,10 @@ sub load ($@) {
 	return $_[0];
 } # load
 
+#         $self->loaded('plugins/test.pl');
+# Alleria::Core->loaded('test');
+sub loaded ($@) { not grep { not $plugins{$_} } @_[1 .. $#_]; }
+
 #         $self->fire('test', [1, 2, 3]);
 # Alleria::Core->fire('test', [1, 2, 3]);
 sub fire ($$$) {

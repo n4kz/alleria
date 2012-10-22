@@ -24,3 +24,5 @@ Alleria->extend(roster => sub {
 
 	return sort map { $_->GetJID() } @jids;
 });
+
+1;

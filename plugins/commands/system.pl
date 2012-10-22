@@ -1,7 +1,10 @@
 use Alleria::Core 'strict';
 
-Alleria->load('commands');
-Alleria->commands(qw{ uptime uname free off });
+Alleria->load('commands')->commands({
+	off    => 'Poweroff',
+	uptime => 'Execute `uptime` and print result',
+	uname  => 'Execute `uname -a` and print result',
+});
 
 Alleria->focus('message::command', sub {
 	my ($self, $event, $args) = @_;
@@ -14,9 +17,6 @@ Alleria->focus('message::command', sub {
 
 		$reply = `uname -a`
 			when 'uname';
-
-		$reply = `free -m`
-			when 'free';
 
 		$self->ok(0)
 			when 'off';

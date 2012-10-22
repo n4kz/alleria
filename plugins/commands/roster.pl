@@ -1,7 +1,21 @@
 use Alleria::Core 'strict';
 
 Alleria->load(qw{ message commands roster subscription });
-Alleria->commands(qw{ roster roster-all roster-add roster-del });
+
+Alleria->commands({
+	roster       => 'Print online users from roster',
+	'roster-all' => 'Print all users in roster',
+
+	'roster-add' => {
+		description => 'Add user to roster',
+		arguments   => '<user@example.com>',
+	},
+
+	'roster-del' => {
+		description => 'Remove user from roster',
+		arguments   => '<user@example.com>',
+	},
+});
 
 Alleria->focus('message::command', sub {
 	my ($self, $event, $args) = @_;
@@ -23,7 +37,7 @@ Alleria->focus('message::command', sub {
 			$self->subscribe($jid);
 			$self->RosterAdd(jid => $jid);
 
-			$reply = 'Item added';
+			$reply = 'User added';
 		}
 
 		when ('roster-del') {
@@ -34,7 +48,7 @@ Alleria->focus('message::command', sub {
 			# so there's no need to do unsubscribe
 			$self->RosterRemove(jid => $jid);
 
-			$reply = 'Item removed';
+			$reply = 'User removed';
 		}
 
 		when (m{^roster-(?:add|del)$}) {
