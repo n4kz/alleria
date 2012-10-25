@@ -3,20 +3,19 @@ my $last = time;
 
 Alleria->load(qw{ message iq });
 
-Alleria->shackleshot(message => sub {
-	$last = time;
-});
+Alleria->shackleshot(message => sub { $last = time });
 
-Alleria->focus('iq::last::get' => sub {
+# http://xmpp.org/extensions/xep-0012.html
+Alleria->focus('iq::jabber:iq:last' => sub {
 	my ($self, $event, $args) = (@_);
-	my ($iq, $request) = @$args;
-
-	my $reply = $request->Reply(qw{ type result });
-	my $query = $reply->NewQuery($iq->{'xmlns'});
+	my ($iq, $query) = @$args;
 
 	$query->SetSeconds(time - $last);
 
-	$self->Send($reply);
+	# <query xmlns='jabber:iq:last' seconds='123456' />
+	$iq->{'empty'} = 1;
 });
+
+Alleria->feature('jabber:iq:last');
 
 1;
