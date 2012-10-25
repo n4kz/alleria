@@ -2,7 +2,7 @@
 use Alleria;
 use Alleria::Core 'strict';
 
-Alleria->load(qw{ error commands/roster commands/system });
+Alleria->load(qw{ error commands/roster commands/system commands/help });
 Alleria->load(qw{ iq/last iq/time iq/version });
 
 unless (@ARGV == 1) {
