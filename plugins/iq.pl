@@ -36,8 +36,8 @@ Alleria->focus(iq => sub {
 		default {
 			$self->fire(join('::', 'iq', $_), [sub {
 				# Create reply only on demand
-				$reply = $iq->Reply(type => 'result');
-				$query = $reply->NewQuery($iq{'xmlns'});
+				$reply ||= $iq->Reply(type => 'result');
+				$query ||= $reply->NewQuery($iq{'xmlns'});
 
 				return $query, $reply;
 			}, \%iq, $iq]);
