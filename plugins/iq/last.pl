@@ -8,7 +8,8 @@ Alleria->shackleshot(message => sub { $last = time });
 # http://xmpp.org/extensions/xep-0012.html
 Alleria->focus('iq::jabber:iq:last' => sub {
 	my ($self, $event, $args) = (@_);
-	my ($iq, $query) = @$args;
+	my ($callback, $iq) = @$args;
+	my ($query, $reply) = $callback->();
 
 	$query->SetSeconds(time - $last);
 

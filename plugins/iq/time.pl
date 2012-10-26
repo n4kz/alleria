@@ -14,7 +14,8 @@ Alleria->load('iq');
 # http://xmpp.org/extensions/xep-0090.html
 Alleria->focus('iq::jabber:iq:time' => sub {
 	my ($self, $event, $args) = (@_);
-	my ($iq, $query) = @$args;
+	my ($callback, $iq) = @$args;
+	my ($query, $reply) = $callback->();
 
 	$query->SetDisplay(time);
 });
@@ -22,7 +23,8 @@ Alleria->focus('iq::jabber:iq:time' => sub {
 # http://xmpp.org/extensions/xep-0202.html
 Alleria->focus('iq::urn:xmpp:time' => sub {
 	my ($self, $event, $args) = (@_);
-	my ($iq, $query) = @$args;
+	my ($callback, $iq) = @$args;
+	my ($query, $reply) = $callback->();
 	my $utc = $w3c->format_datetime(DateTime->now(time_zone => 'UTC'));
 
 	$query->SetTZO($tz);

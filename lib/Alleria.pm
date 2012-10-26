@@ -1,4 +1,4 @@
-package Alleria 3;
+package Alleria 4;
 use Alleria::Core 'base', 'has';
 use Term::ReadKey;
 use Net::Jabber 'client';
