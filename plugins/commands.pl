@@ -47,14 +47,15 @@ Alleria->extend(commands => sub {
 
 Alleria->extend(accessibles => sub {
 	my ($self, $jid, $rule) = @_;
-
+	
+	return unless $jid;
 	return keys %commands unless $self->loaded('access');
 	return grep {
 		$self->accessible({
 			rule => $rule || 'commands',
 			from => $jid,
 			name => $_,
-		});
+		})
 	} keys %commands;
 });
 

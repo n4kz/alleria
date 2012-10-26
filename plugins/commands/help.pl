@@ -18,7 +18,7 @@ Alleria->focus('message::command', sub {
 	given ($message->{'command'}) {
 		when ('help') {
 			unless ($command) {
-				$reply = "\nAvailable commands:\n". join ", ", sort $self->accessibles();
+				$reply = "\nAvailable commands:\n". join ", ", sort $self->accessibles($message->{'from'});
 			} else {
 				my $meta = $self->description($command)
 					if not $self->loaded('access') or $self->accessible({

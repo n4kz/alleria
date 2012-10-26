@@ -163,7 +163,14 @@ sub load ($@) {
 
 #         $self->loaded('plugins/test.pl');
 # Alleria::Core->loaded('test');
-sub loaded ($@) { not grep { not $plugins{$_} } @_[1 .. $#_]; }
+sub loaded ($$) {
+	local $_ = $_[1];
+	s{^\.*/} {}g;
+	s{^} {plugins/} unless m{^plugins};
+	s{$} {.pl} unless m{\.p[lm]$};
+
+	return exists $plugins{$_};
+} # loaded
 
 #         $self->fire('test', [1, 2, 3]);
 # Alleria::Core->fire('test', [1, 2, 3]);
