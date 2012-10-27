@@ -15,6 +15,8 @@ Alleria->focus(message => sub {
 	given ($message{'type'}) {
 		when (m{(?:group)?chat}) {
 			# Fire chatstate event
+			# TODO: Namespace
+			# http://xmpp.org/extensions/xep-0085.html 
 			$self->fire(join('::', $event, $1), [\%message]) if 
 				$message{'xml'} =~ m{((?:in)?active|composing|paused|gone) xmlns=.http://jabber.org/protocol/chatstates};
 
@@ -59,7 +61,7 @@ Alleria->extend(message => sub {
 
 =head1 NAME
 
-Message plugin for L<Alleria>
+Alleria::Plugin::Message - Message plugin for L<Alleria>
 
 =head1 SYNOPSIS
 
@@ -67,7 +69,7 @@ Message plugin for L<Alleria>
 
 	Alleria->focus('message::chat', sub {
 		my ($self, $event, $args) = @_;
-		my $message = $args[0];
+		my $message = $args->[0];
 
 		$self->message({
 			to => $message->{'from'},
@@ -77,9 +79,9 @@ Message plugin for L<Alleria>
 
 =head1 METHODS
 
-This plugin adds one method to Alleria class
+This plugin adds one method to L<Alleria> class
 
-=head2 message
+=head2 C<message>
 
 	$self->message({
 		to   => 'test@example.com',
@@ -89,22 +91,42 @@ This plugin adds one method to Alleria class
 
 =head1 EVENTS
 
-This plugin listens message event and fires the following ones
+This plugins listens C<message> event and fires the following ones
 
 =head2 General
 
-	message::chat
-	message::groupchat
-	message::groupchat::system
-	message::groupchat::delay
-	message::groupchat::system::delay
+=over 4
+
+=item message::chat
+
+=item message::groupchat
+
+=item message::groupchat::system
+
+=item message::groupchat::delay
+
+=item message::groupchat::system::delay
+
+=back
 
 =head2 Chatstates
 
-	message::active
-	message::inactive
-	message::composing
-	message::paused
-	message::gone
+=over 4
+
+=item message::active
+
+=item message::inactive
+
+=item message::composing
+
+=item message::paused
+
+=item message::gone
+
+=back
+
+=head1 SEE ALSO
+
+L<Alleria::Core>, L<Alleria>
 
 =cut
