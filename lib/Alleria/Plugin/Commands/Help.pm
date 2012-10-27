@@ -1,3 +1,4 @@
+package Alleria::Plugin::Commands::Help;
 use Alleria::Core 'strict';
 
 my $template = join '', readline DATA;

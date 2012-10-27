@@ -1,3 +1,4 @@
+package Alleria::Plugin::Echo;
 use Alleria::Core 'strict';
 
 Alleria->load('message');

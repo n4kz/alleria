@@ -1,3 +1,4 @@
+package Alleria::Plugin::Message;
 use Alleria::Core 'strict';
 
 my %fields = map { ("Get$_" => lc) } qw{ Body From Subject Type TimeStamp XML };

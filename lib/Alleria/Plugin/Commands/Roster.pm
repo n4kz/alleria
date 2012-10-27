@@ -1,3 +1,4 @@
+package Alleria::Plugin::Commands::Roster;
 use Alleria::Core 'strict';
 
 Alleria->load(qw{ message commands roster subscription });

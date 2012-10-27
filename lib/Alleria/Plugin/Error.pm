@@ -1,3 +1,4 @@
+package Alleria::Plugin::Error;
 use Alleria::Core 'strict';
 
 Alleria->focus('error', sub {

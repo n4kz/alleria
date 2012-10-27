@@ -145,29 +145,24 @@ sub shackleshot ($$$$) {
 	return $_[0];
 } # shackleshot
 
-#         $self->load('plugins/test.pl');
-# Alleria::Core->load('plugins/test.pl', ...);
-# Alleria::Core->load('test');
+#         $self->load('test');
+# Alleria::Core->load('test', ...);
 sub load ($@) {
 	foreach (@_[1 .. $#_]) {
 		local $_ = $_;
-		s{^\.*/} {}g;
-		s{^} {plugins/} unless m{^plugins};
-		s{$} {.pl} unless m{\.p[lm]$};
+		$_ = join '::', 'Alleria', 'Plugin', map { s{^(.)} {uc($1)}e; $_ } split m{(?:/|::)};
 
-		$plugins{$_} ||= eval "require '$_'" or die $@;
+		$plugins{$_} ||= eval "require $_" or die $@;
 	}
 
 	return $_[0];
 } # load
 
-#         $self->loaded('plugins/test.pl');
-# Alleria::Core->loaded('test');
+#         $self->loaded('test');
+# Alleria::Core->loaded('test::plugin');
 sub loaded ($$) {
 	local $_ = $_[1];
-	s{^\.*/} {}g;
-	s{^} {plugins/} unless m{^plugins};
-	s{$} {.pl} unless m{\.p[lm]$};
+	$_ = join '::', 'Alleria', 'Plugin', map { s{^(.)} {uc($1)}e; $_ } split m{(?:/|::)};
 
 	return exists $plugins{$_};
 } # loaded

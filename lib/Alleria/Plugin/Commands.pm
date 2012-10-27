@@ -1,3 +1,4 @@
+package Alleria::Plugin::Commands;
 use Alleria::Core 'strict';
 
 my %commands;

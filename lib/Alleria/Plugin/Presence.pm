@@ -1,3 +1,4 @@
+package Alleria::Plugin::Presence;
 use Alleria::Core 'strict';
 
 my %fields = map { ("Get$_" => lc) } qw{ To From Type Status Show };

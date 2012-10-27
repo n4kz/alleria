@@ -1,3 +1,4 @@
+package Alleria::Plugin::Iq::Time;
 use Alleria::Core 'strict';
 use DateTime;
 use DateTime::Format::W3CDTF;

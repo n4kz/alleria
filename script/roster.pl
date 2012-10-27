@@ -1,4 +1,4 @@
-#!/usr/bin/perl -w -Ilib
+#!/usr/bin/perl -w
 use Alleria;
 use Alleria::Core 'strict';
 

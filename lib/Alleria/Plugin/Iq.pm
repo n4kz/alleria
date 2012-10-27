@@ -1,3 +1,4 @@
+package Alleria::Plugin::Iq;
 use Alleria::Core 'strict';
 
 my %fields = (

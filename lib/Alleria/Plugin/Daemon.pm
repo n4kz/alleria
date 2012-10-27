@@ -1,3 +1,4 @@
+package Alleria::Plugin::Daemon;
 use Alleria::Core 'strict';
 
 Alleria->extend(daemonize => sub {

@@ -1,3 +1,4 @@
+package Alleria::Plugin::Access;
 use Alleria::Core 'strict';
 
 Alleria->properties('rules');

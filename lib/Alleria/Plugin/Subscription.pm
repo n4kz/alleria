@@ -1,3 +1,4 @@
+package Alleria::Plugin::Subscription;
 use Alleria::Core 'strict';
 
 Alleria->load('presence');

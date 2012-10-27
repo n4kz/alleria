@@ -1,3 +1,4 @@
+package Alleria::Plugin::Iq::Version;
 use Alleria::Core 'strict';
 
 Alleria->load('iq');
@@ -15,3 +16,5 @@ Alleria->focus('iq::jabber:iq:version', sub {
 });
 
 Alleria->feature('jabber:iq:version');
+
+1;

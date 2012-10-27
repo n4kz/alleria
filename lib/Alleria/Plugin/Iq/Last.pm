@@ -1,4 +1,6 @@
+package Alleria::Plugin::Iq::Last;
 use Alleria::Core 'strict';
+
 my $last = time;
 
 Alleria->load(qw{ message iq });

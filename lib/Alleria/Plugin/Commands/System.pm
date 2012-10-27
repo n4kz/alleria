@@ -1,3 +1,4 @@
+package Alleria::Plugin::Commands::System;
 use Alleria::Core 'strict';
 
 Alleria->load('commands')->commands({

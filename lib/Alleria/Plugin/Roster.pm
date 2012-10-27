@@ -1,4 +1,6 @@
+package Alleria::Plugin::Roster;
 use Alleria::Core 'strict';
+
 my $roster;
 
 Alleria->load('presence');
