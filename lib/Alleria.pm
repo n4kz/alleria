@@ -33,6 +33,14 @@ sub new {
 	$self->{'resource'} ||= 'Alleria';
 	$self->{'logfile'}  ||= '/dev/null';
 
+	my $jid = Net::XMPP::JID->new();
+
+	$jid->SetServer($self->{'host'});
+	$jid->SetUserID($self->{'username'});
+	$jid->SetResource($self->{'resource'});
+
+	$self->{'jid'} = $jid;
+
 	return $self;
 } # new
 

@@ -28,6 +28,7 @@ Alleria->focus(presence => sub {
 
 		1 when m{(?:un)?available};
 		1 when 'probe';
+		1 when 'error';
 
 		default {
 			undef $event;
@@ -45,7 +46,7 @@ Alleria->extend(presence => sub {
 	undef $type unless
 		$type and grep { $_ eq $type } qw{ away chat dnd xa };
 
-	$presence{'type'} = $type if $type;
+	$presence{'type'}   = $type   if $type;
 	$presence{'status'} = $status if $status;
 
 	$self->PresenceSend(%presence);
