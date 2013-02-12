@@ -26,8 +26,7 @@ Alleria->shackleshot(fire => sub {
 	}
 
 	$message->{'arguments'} //= '';
-	$message->{'arguments'} =~ s{[\s\t\n\r]+} { }g;
-	$message->{'arguments'} =~ s{\s\Z} {};
+	$message->{'arguments'} =~ s{[\s\t\n\r]+\Z} {};
 
 	$self->fire('message::command', $args);
 
