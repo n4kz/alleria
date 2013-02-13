@@ -64,6 +64,19 @@ Alleria->extend(feature => sub {
 	return $self;
 })->feature('http://jabber.org/protocol/disco#info');
 
+Alleria->extend(iq => sub {
+	my ($self, $iq, %options) = @_;
+
+	my $iq = Net::Jabber::IQ->new();
+	$iq->SetIQ(%{ delete $options{'request'} || {} });
+
+	$iq->NewChild($_)->AddItem($options{$_})
+		foreach keys %options;
+
+	$self->Send($iq);
+
+	return $self;
+});
 
 # Extension to get children count for stanza
 package Net::XMPP::Stanza;
