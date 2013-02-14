@@ -35,7 +35,7 @@ Alleria->extend(nick => sub {
 
 	$self->PresenceSend(
 		from => $self->jid(),
-		to   => join '/' $room, $nick,
+		to   => join '/', $room, $nick,
 	);
 
 	return $self;

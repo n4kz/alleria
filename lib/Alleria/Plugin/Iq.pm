@@ -65,7 +65,7 @@ Alleria->extend(feature => sub {
 })->feature('http://jabber.org/protocol/disco#info');
 
 Alleria->extend(iq => sub {
-	my ($self, $iq, %options) = @_;
+	my ($self, %options) = @_;
 
 	my $iq = Net::Jabber::IQ->new();
 	$iq->SetIQ(%{ delete $options{'request'} || {} });
